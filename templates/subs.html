@@ -1,0 +1,28 @@
+
+<head>
+    <title>All subscribers</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <table class="table">
+        <th>UserID</th>
+        <th>Address</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>FavouriteCategory</th>   
+
+        {{range . }}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.Address}}</td>
+            <td>{{.Role}}</td>
+            <td>{{.Name}}</td>
+            <td>{{.Surname}}</td>
+            <td>{{.FavouriteCategory}}</td>
+        </tr>
+        {{end}}
+
+    </table>
+
+</body>
+{{end}}
