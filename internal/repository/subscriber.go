@@ -11,20 +11,22 @@ type subscriber struct {
 	logger logger.Logger
 }
 
-func NewAccountRepository(db *sql.DB, logger logger.Logger) (repository Subscriber) {
+func newSubscriberRepository(db *sql.DB, logger logger.Logger) (repository Subscriber) {
 	return &subscriber{
 		db:     db,
 		logger: logger,
 	}
 }
 
-func (rep *subscriber) GetAll() (ubs []models.Subscriber, err error) {
-	query := `SELECT id,	 
-				adress,
-				name,
-				surname,
+func (rep *subscriber) GetAll() (subs []models.Subscriber, err error) {
+	query := `SELECT 	 
+				subscriber_id,
+				sub_address,
+				sub_name,
+				sub_surname,
 				favourite_category
-			FROM subscribers`
+			FROM 
+				subscribers`
 
 	rows, err := rep.db.Query(query)
 	if err != nil {
@@ -35,15 +37,18 @@ func (rep *subscriber) GetAll() (ubs []models.Subscriber, err error) {
 	for rows.Next() {
 		sub := models.Subscriber{}
 		if err = rows.Scan(
-			&account.ID,
-			&account.Balance,
+			&sub.ID,
+			&sub.Address,
+			&sub.Name,
+			&sub.Surname,
+			&sub.FavouriteCategory,
 		); err != nil {
 			rep.logger.Errorf("error occurred while getting all accounts. err: %s", err)
 			return nil, err
 		}
 
-		accounts = append(accounts, account)
+		subs = append(subs, sub)
 	}
 
-	return accounts, nil
+	return subs, nil
 }

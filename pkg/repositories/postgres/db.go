@@ -3,7 +3,7 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
-
+	"mailganer/pkg/logger"
 
 	_ "github.com/lib/pq"
 )
