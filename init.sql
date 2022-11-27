@@ -22,5 +22,5 @@ CREATE TABLE IF NOT EXISTS templates (
 
 INSERT INTO templates (template_id, template_path) 
 VALUES 
-  (1, 'templates\mail\hello.html'), 
-  (1, 'templates\mail\hello.html');
+  (1, 'templates/mail/hello.html'), 
+  (2, 'templates/mail/hello.html');

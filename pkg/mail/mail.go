@@ -31,7 +31,7 @@ func NewMail(logger logger.Logger) *Mail {
 	}
 }
 
-func (m *Mail) SendMessage(sub []models.Subscriber) error {
+func (m *Mail) SendMessage(sub []models.Subscriber, tmplPath string) error {
 	port, err := strconv.Atoi(m.port)
 	if err != nil {
 		m.logger.Errorf("error occurred while conv port. err:%s ", err)
@@ -48,7 +48,7 @@ func (m *Mail) SendMessage(sub []models.Subscriber) error {
 
 	mess := gomail.NewMessage()
 
-	tmpl, err := template.ParseFiles("templates/hello.html")
+	tmpl, err := template.ParseFiles(tmplPath)
 	if err != nil {
 		m.logger.Errorf("error occurred while parse template. err:%s ", err)
 		return err
@@ -69,8 +69,8 @@ func (m *Mail) SendMessage(sub []models.Subscriber) error {
 
 }
 
-func (m *Mail) SendMessageWithDelay(callTime time.Time, sub []models.Subscriber) error {
-	
+func (m *Mail) SendMessageWithDelay(callTime time.Time, sub []models.Subscriber, tmplPath string) error {
+
 	now := time.Now()
 	if callTime.Before(now) {
 		return errors.New("time can not be befor now")
@@ -80,13 +80,13 @@ func (m *Mail) SendMessageWithDelay(callTime time.Time, sub []models.Subscriber)
 
 	go func() {
 		time.Sleep(duration)
-		m.SendMessage(sub)
+		m.SendMessage(sub, tmplPath)
 	}()
 
 	return nil
 }
 
-func (m *Mail) SendMessageEveryDay(callTime time.Time, sub []models.Subscriber) error {
+func (m *Mail) SendMessageEveryDay(callTime time.Time, sub []models.Subscriber, tmplPath string) error {
 	loc, err := time.LoadLocation("Local")
 	if err != nil {
 		m.logger.Errorf("error occurred while load location. err:%s ", err)
@@ -104,7 +104,7 @@ func (m *Mail) SendMessageEveryDay(callTime time.Time, sub []models.Subscriber) 
 	go func() {
 		time.Sleep(duration)
 		for {
-			m.SendMessage(sub)
+			m.SendMessage(sub, tmplPath)
 			time.Sleep(time.Hour * 24)
 		}
 	}()

@@ -1,62 +1,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-<body>
-
-
-    <head>
-        <meta charset="UTF-8">
-        <title>MailGaner</title>
-        
-    </head>
-
-
-    <div>
-        <h2>Send now</h2>
-        <form action="/send" method="post">
-            <button>send</button>
-            <p><select size="3" name="template" required>
-                <option disabled>Choose template</option>
-                <option value="CallBack">Call back</option>
-                <option value="FavouriteCategory">Favourite category</option>                
-               </select></p>
-        </form>
-    </div>
-    
-    <div>
-        <h2>Delayed send</h2>
-        <form action="/delaysend" method="post">
-            <input type="datetime-local" name="delay" min="now" required><br><br>
-            <p><select size="3" name="template" required>
-                <option disabled>Choose template</option>
-                <option value="CallBack">Call back</option>
-                <option value="FavouriteCategory">Favourite category</option>                
-               </select></p>
-            <button>send</button>
-        </form>
-    </div>
-    
-    <div>
-        <h2>Newsletter</h2>
-        <form action="/newsletter" method="post">
-            <input type="time" name="everyday" required><br><br>
-            <p><select size="3" name="template" required>
-                <option disabled>Choose template</option>
-                <option value="CallBack">Call back</option>
-                <option value="FavouriteCategory">Favourite category</option>                
-               </select></p>
-            <button>send</button>                
-        </form>
-    </div>
-
-    <div>
-        <h2>Get subscribers</h2>
-        <form action="/getsubs" method="get">            
-            <button>get</button>                
-        </form>
-    </div>
-    
-</body>
-
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <style type="text/css">
+   h2 {
+    font-size: 1.1em; /* Размер шрифта */
+    color: #800040; /* Цвет текста */
+    margin-top: 0; /* Отступ сверху */
+   }
+   #container {
+    width: 500px; /* Ширина слоя */
+    margin: 0 auto; /* Выравнивание по центру */
+    background: #f0f0f0; /* Цвет фона левой колонки */
+   }
+   #header {
+    font-size: 2.2em; /* Размер текста */
+    text-align: center; /* Выравнивание по центру */
+    padding: 5px; /* Отступы вокруг текста */
+    background: #8fa09b; /* Цвет фона шапки */
+    color: #ffe; /* Цвет текста */
+   }
+   #sidebar {
+    margin-top: 10px; 
+    width: 110px; /* Ширина слоя */
+    padding: 0 10px; /* Отступы вокруг текста */
+    float: left; /* Обтекание по правому краю */
+   }
+   #content {
+    margin-left: 130px; /* Отступ слева */
+    padding: 10px; /* Поля вокруг текста */
+    background: #fff; /* Цвет фона правой колонки */
+   }
+   #footer {
+    background: #8fa09b; /* Цвет фона подвала */
+    color: #fff; /* Цвет текста */
+    padding: 5px; /* Отступы вокруг текста */
+    clear: left; /* Отменяем действие float */
+   }
+  </style>
+ </head>
+ <body>
+  <div id="container">
+   <div id="header">Mailganer</div>
+   <div id="sidebar">
+    <p>Перейти на сайт</p>
+    <p>FAQ</a></p>
+    <p>Помощь</p>
+   </div>
+   <div id="content">
+    <h2>Добрый день , {{ .Name }}</h2>
+    <ul>
+    <div>Дорогой, {{ .Name }} {{ .Surname }} , новое пополнение в твоей любимой категории "{{ .FavouriteCategory}}"!</div>
+    </ul> 
+   </div>
+   <div id="footer">MailGaner</div>
+  </div> 
+ </body>
 </html>
