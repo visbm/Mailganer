@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"html/template"
 	"mailganer/internal/models"
+	"mailganer/internal/repository"
 	"mailganer/pkg/logger"
 	"mailganer/pkg/mail"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -16,23 +18,25 @@ const datetimeLayout = "2006-01-02T15:04"
 const timeLayout = "15:04"
 
 type mailHandler struct {
-	logger logger.Logger
-	mail   mail.Mail
+	logger     logger.Logger
+	mail       mail.Mail
+	repository *repository.Repository
 }
 
-func newMailHandler(logger logger.Logger, mail *mail.Mail) *mailHandler {
+func newMailHandler(logger logger.Logger, mail *mail.Mail , repository *repository.Repository) *mailHandler {
 	return &mailHandler{
 		logger: logger,
 		mail:   *mail,
+		repository: repository,
 	}
 }
 
 var subs = []models.Subscriber{{Address: "samohvalon1998@gmail.com",
-	Name: "Nick", Surname: "Fury"}, {Address: "visbm@mail.ru",
-	Name: "kek", Surname: "lol"}}
+	Name: "Nick", Surname: "Fury", FavouriteCategory: "cars"}, {Address: "visbm@mail.ru",
+	Name: "kek", Surname: "lol", FavouriteCategory: "films"}}
 
 const (
-	home       = "/home"
+	home       = "/"
 	getSubs    = "/getsubs"
 	sendMail   = "/send"
 	delaysend  = "/delaysend"
@@ -48,6 +52,14 @@ func (mh *mailHandler) Register(router *mux.Router) {
 }
 
 func (mh *mailHandler) delaysend(w http.ResponseWriter, r *http.Request) {
+
+	/*tmplID, err := strconv.Atoi(r.FormValue("template"))
+	if err != nil {
+		mh.logger.Errorf("error occurred while getting template. err: %s ", err)
+		http.Error(w, fmt.Sprintf("error occurred while getting template. err: %s ", err), http.StatusInternalServerError)
+		return
+	}*/
+
 	sendTime, err := time.Parse(datetimeLayout, r.FormValue("delay"))
 	if err != nil {
 		mh.logger.Errorf("error occurred while parsing time. err: %s ", err)
@@ -55,7 +67,7 @@ func (mh *mailHandler) delaysend(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = mh.mail.SendMessageWithDelay(sendTime, subs)
+	err = mh.mail.SendMessageWithDelay(sendTime, subs, "templates/mail/hello.html")
 	if err != nil {
 		mh.logger.Errorf("error occurred while sending message. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while sending message. err: %s ", err), http.StatusInternalServerError)
@@ -73,7 +85,7 @@ func (mh *mailHandler) newsletter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = mh.mail.SendMessageEveryDay(sendTime, subs)
+	err = mh.mail.SendMessageEveryDay(sendTime, subs, "templates/mail/hello.html")
 	if err != nil {
 		mh.logger.Errorf("error occurred while sending message. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while sending message. err: %s ", err), http.StatusInternalServerError)
@@ -84,8 +96,22 @@ func (mh *mailHandler) newsletter(w http.ResponseWriter, r *http.Request) {
 }
 
 func (mh *mailHandler) sendMail(w http.ResponseWriter, r *http.Request) {
+	var path string
+	tmplID, err := strconv.Atoi(r.FormValue("template"))
+	if err != nil {
+		mh.logger.Errorf("error occurred while getting template. err: %s ", err)
+		http.Error(w, fmt.Sprintf("error occurred while getting template. err: %s ", err), http.StatusInternalServerError)
+		return
+	}
 
-	err := mh.mail.SendMessage(subs)
+	if tmplID == 1 {
+		path = "templates/mail/hello.html"
+	} else if tmplID == 2 {
+		path = "templates/mail/category.html"
+
+	}
+
+	err = mh.mail.SendMessage(subs, path)
 	if err != nil {
 		mh.logger.Errorf("error occurred while sending message. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while sending message. err: %s ", err), http.StatusInternalServerError)

@@ -12,3 +12,8 @@ type Subscriber struct {
 	Surname           string
 	FavouriteCategory string
 }
+
+type Template struct {
+	ID                int
+	Path           string	
+}

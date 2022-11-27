@@ -4,7 +4,9 @@ import (
 	"context"
 	"log"
 	"mailganer/internal/handler"
+	"mailganer/internal/repository"
 	"mailganer/pkg/logger"
+	"mailganer/pkg/repositories/postgres"
 	"mailganer/pkg/server"
 	"net/http"
 	"os"
@@ -12,7 +14,6 @@ import (
 
 	"github.com/joho/godotenv"
 )
-
 
 func main() {
 	err := godotenv.Load(".env")
@@ -22,7 +23,7 @@ func main() {
 
 	logger := logger.GetLogger()
 
-	/*db, err := postgres.NewPostgresDB(&postgres.PostgresDB{
+	db, err := postgres.NewPostgresDB(&postgres.PostgresDB{
 		Host:     os.Getenv("POSTGRES_HOST"),
 		Port:     os.Getenv("POSTGRES_PORT"),
 		Username: os.Getenv("POSTGRES_USER"),
@@ -34,8 +35,8 @@ func main() {
 	if err != nil {
 		logger.Panicf("Error while initialisation database:%s", err)
 	}
-	repository := repository.New(db, logger)*/
-	handler := handler.NewHandler(logger)
+	repository := repository.New(db, logger)
+	handler := handler.NewHandler(logger , repository)
 
 	server := server.NewServer(logger, *handler, os.Getenv("SERVER_HOST"), os.Getenv("SERVER_PORT"))
 

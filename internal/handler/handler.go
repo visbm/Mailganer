@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"mailganer/internal/repository"
 	"mailganer/pkg/logger"
 	"mailganer/pkg/mail"
 
@@ -8,16 +9,16 @@ import (
 )
 
 type Handler struct {
-	logger logger.Logger
-	//repository  *repository.Repository
+	logger      logger.Logger
+	repository  *repository.Repository
 	mailHandler *mailHandler
 }
 
-func NewHandler(logger logger.Logger /*, repository *repository.Repository*/) *Handler {
+func NewHandler(logger logger.Logger, repository *repository.Repository) *Handler {
 	return &Handler{
 		logger: logger,
-		//repository:  repository,
-		mailHandler: newMailHandler(logger, mail.NewMail(logger)),
+		repository:  repository,
+		mailHandler: newMailHandler(logger, mail.NewMail(logger) , repository),
 	}
 }
 
