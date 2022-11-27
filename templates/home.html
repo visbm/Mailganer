@@ -15,12 +15,14 @@
     <div>
         <h2>Send now</h2>
         <form action="/send" method="post">
-            <button>send</button>
-            <p><select size="3" name="template" required>
+            <p>
+                <select size="3" name="template" required>
                 <option disabled>Choose template</option>
                 <option value="1">Call back</option>
                 <option value="2">Favourite category</option>                
-               </select></p>
+               </select>
+            </p>
+            <button>send</button>           
         </form>
     </div>
     
@@ -28,11 +30,13 @@
         <h2>Delayed send</h2>
         <form action="/delaysend" method="post">
             <input type="datetime-local" name="delay" min="now" required><br><br>
-            <p><select size="3" name="template" required>
+            <p>
+                <select size="3" name="template" required>
                 <option disabled>Choose template</option>
-                <option value="CallBack">Call back</option>
-                <option value="FavouriteCategory">Favourite category</option>                
-               </select></p>
+                <option value="1">Call back</option>
+                <option value="2">Favourite category</option>                
+               </select>
+            </p>
             <button>send</button>
         </form>
     </div>
@@ -41,11 +45,13 @@
         <h2>Newsletter</h2>
         <form action="/newsletter" method="post">
             <input type="time" name="everyday" required><br><br>
-            <p><select size="3" name="template" required>
+            <p>
+                <select size="3" name="template" required>
                 <option disabled>Choose template</option>
-                <option value="CallBack">Call back</option>
-                <option value="FavouriteCategory">Favourite category</option>                
-               </select></p>
+                <option value="1">Call back</option>
+                <option value="2">Favourite category</option>                
+               </select>
+            </p>
             <button>send</button>                
         </form>
     </div>
