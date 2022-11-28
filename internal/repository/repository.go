@@ -2,14 +2,12 @@ package repository
 
 import (
 	"database/sql"
-	"errors"
 	"mailganer/internal/models"
 	"mailganer/pkg/logger"
+	 _ "github.com/golang/mock/mockgen/model"
 )
 
-var (
-	ErrNoRowsAffected = errors.New("now rows affected")
-)
+//go:generate mockgen -source repository.go -destination mock_repository/mock_repository.go 
 
 type Subscriber interface {
 	GetAll() (subs []models.Subscriber, err error)

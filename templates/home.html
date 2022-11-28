@@ -1,67 +1,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-<body>
-
-
+<body style="background-color: aliceblue;">
     <head>
         <meta charset="UTF-8">
         <title>MailGaner</title>
-        
     </head>
-
-
-    <div>
-        <h2>Send now</h2>
-        <form action="/send" method="post">
-            <p>
-                <select size="3" name="template" required>
-                <option disabled>Choose template</option>
-                <option value="1">Call back</option>
-                <option value="2">Favourite category</option>                
-               </select>
-            </p>
-            <button>send</button>           
-        </form>
+    <div style="text-align:center; margin-left:50px;width:300x; font-family:Arial, Helvetica, sans-serif">
+        <div style="border:1px solid #000; padding: 5px 5px;background-color:aquamarine; width:300px;">
+            <h2>Send now</h2>
+            <form action="/send" method="post">
+                <p>
+                    <select size="3" name="template" required>
+                    <option disabled>Choose template</option>
+                    <option value="1">Call back</option>
+                    <option value="2">Favourite category</option>                
+                   </select>
+                </p>
+                <button style="padding: 5px 5px">send</button>           
+            </form>
+        </div>
+        
+        <div style="border:1px solid #000; padding: 5px 5px; width:300px; background-color:azure">
+            <h2>Delayed send</h2>
+            <form action="/delaysend" method="post">
+                <input type="datetime-local" name="delay" min="now" required><br><br>
+                <p>
+                    <select size="3" name="template" required>
+                    <option disabled>Choose template</option>
+                    <option value="1">Call back</option>
+                    <option value="2">Favourite category</option>                
+                   </select>
+                </p>
+                <button style="padding: 5px 5px">send</button>
+            </form>
+        </div>
+        
+        <div style="border:1px solid #000; padding: 5px 5px; width:300px;background-color:beige">
+            <h2>Newsletter</h2>
+            <form action="/newsletter" method="post">
+                <input type="time" name="everyday" required><br><br>
+                <p>
+                    <select size="3" name="template" required>
+                    <option disabled>Choose template</option>
+                    <option value="1">Call back</option>
+                    <option value="2">Favourite category</option>                
+                   </select>
+                </p>
+                <button style="padding: 5px 5px">send</button>                
+            </form>
+        </div>
+    
+        <div style="border:1px solid #000; padding: 5px 5px; width:300px;background-color:blanchedalmond">
+            <h2>Get subscribers</h2>
+            <form action="/getsubs" method="get">            
+                <button style="padding: 5px 5px">get</button>                
+            </form>
+        </div>
     </div>
     
-    <div>
-        <h2>Delayed send</h2>
-        <form action="/delaysend" method="post">
-            <input type="datetime-local" name="delay" min="now" required><br><br>
-            <p>
-                <select size="3" name="template" required>
-                <option disabled>Choose template</option>
-                <option value="1">Call back</option>
-                <option value="2">Favourite category</option>                
-               </select>
-            </p>
-            <button>send</button>
-        </form>
-    </div>
-    
-    <div>
-        <h2>Newsletter</h2>
-        <form action="/newsletter" method="post">
-            <input type="time" name="everyday" required><br><br>
-            <p>
-                <select size="3" name="template" required>
-                <option disabled>Choose template</option>
-                <option value="1">Call back</option>
-                <option value="2">Favourite category</option>                
-               </select>
-            </p>
-            <button>send</button>                
-        </form>
-    </div>
-
-    <div>
-        <h2>Get subscribers</h2>
-        <form action="/getsubs" method="get">            
-            <button>get</button>                
-        </form>
-    </div>
     
 </body>
 

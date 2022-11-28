@@ -17,16 +17,18 @@ const datetimeLayout = "2006-01-02T15:04"
 const timeLayout = "15:04"
 
 type mailHandler struct {
-	logger     logger.Logger
-	mail       mail.Mail
-	repository *repository.Repository
+	logger  logger.Logger
+	mail    mail.Mail
+	subRep  repository.Subscriber
+	tmplRep repository.Template
 }
 
-func newMailHandler(logger logger.Logger, mail *mail.Mail, repository *repository.Repository) *mailHandler {
+func newMailHandler(logger logger.Logger, mail *mail.Mail, subRep repository.Subscriber ,tmplRep repository.Template ) *mailHandler {
 	return &mailHandler{
-		logger:     logger,
-		mail:       *mail,
-		repository: repository,
+		logger:  logger,
+		mail:    *mail,
+		subRep:  subRep,
+		tmplRep: tmplRep,
 	}
 }
 
@@ -43,7 +45,7 @@ func (mh *mailHandler) Register(router *mux.Router) {
 	router.HandleFunc(getSubs, mh.getSubs).Methods("GET")
 	router.HandleFunc(sendMail, mh.sendMail).Methods("POST")
 	router.HandleFunc(delaysend, mh.delaysend).Methods("POST")
-	router.HandleFunc(newsletter, mh.newsletter).Methods("POST")	
+	router.HandleFunc(newsletter, mh.newsletter).Methods("POST")
 }
 
 func (mh *mailHandler) delaysend(w http.ResponseWriter, r *http.Request) {
@@ -54,14 +56,14 @@ func (mh *mailHandler) delaysend(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := mh.repository.GetTemplateByID(tmplID)
+	tmpl, err := mh.tmplRep.GetTemplateByID(tmplID)
 	if err != nil {
 		mh.logger.Errorf("error occurred while getting template. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while getting template. err: %s ", err), http.StatusInternalServerError)
 		return
 	}
 
-	subs, err := mh.repository.GetAll()
+	subs, err := mh.subRep.GetAll()
 	if err != nil {
 		mh.logger.Errorf("error occurred while getting subscribers. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while getting subscribers. err: %s ", err), http.StatusInternalServerError)
@@ -93,14 +95,14 @@ func (mh *mailHandler) newsletter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := mh.repository.GetTemplateByID(tmplID)
+	tmpl, err := mh.tmplRep.GetTemplateByID(tmplID)
 	if err != nil {
 		mh.logger.Errorf("error occurred while getting template. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while getting template. err: %s ", err), http.StatusInternalServerError)
 		return
 	}
 
-	subs, err := mh.repository.GetAll()
+	subs, err := mh.subRep.GetAll()
 	if err != nil {
 		mh.logger.Errorf("error occurred while getting subscribers. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while getting subscribers. err: %s ", err), http.StatusInternalServerError)
@@ -133,14 +135,14 @@ func (mh *mailHandler) sendMail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tmpl, err := mh.repository.GetTemplateByID(tmplID)
+	tmpl, err := mh.tmplRep.GetTemplateByID(tmplID)
 	if err != nil {
-		mh.logger.Errorf("error occurred while parsing template id. err: %s ", err)
-		http.Error(w, fmt.Sprintf("error occurred while parsing template id. err: %s ", err), http.StatusInternalServerError)
+		mh.logger.Errorf("error occurred while getting template. err: %s ", err)
+		http.Error(w, fmt.Sprintf("error occurred while getting template. err: %s ", err), http.StatusInternalServerError)
 		return
 	}
 
-	subs, err := mh.repository.GetAll()
+	subs, err := mh.subRep.GetAll()
 	if err != nil {
 		mh.logger.Errorf("error occurred while getting subscribers. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while getting subscribers. err: %s ", err), http.StatusInternalServerError)
@@ -176,7 +178,7 @@ func (mh *mailHandler) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (mh *mailHandler) getSubs(w http.ResponseWriter, r *http.Request) {
-	subs, err := mh.repository.GetAll()
+	subs, err := mh.subRep.GetAll()
 	if err != nil {
 		mh.logger.Errorf("error occurred while getting subscribers. err: %s ", err)
 		http.Error(w, fmt.Sprintf("error occurred while getting subscribers. err: %s ", err), http.StatusInternalServerError)

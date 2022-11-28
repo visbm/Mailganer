@@ -24,9 +24,9 @@ func (rep *template) GetTemplateByID(id int) (tmpl *models.Template, err error) 
 				template_id, 
 				template_path
   			FROM 
-			  templates  
+			  	templates  
   			WHERE 
-			  template_id = $1`
+			  	template_id = $1`
 	if err = rep.db.QueryRow(query, id).
 		Scan(
 			&tmpl.ID,

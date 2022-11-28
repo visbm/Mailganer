@@ -5,48 +5,48 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
   <style type="text/css">
    h2 {
-    font-size: 1.1em; /* Размер шрифта */
-    color: #800040; /* Цвет текста */
-    margin-top: 0; /* Отступ сверху */
+    font-size: 1.1em; 
+    color: #800040; 
+    margin-top: 0; 
    }
    #container {
-    width: 500px; /* Ширина слоя */
-    margin: 0 auto; /* Выравнивание по центру */
-    background: #f0f0f0; /* Цвет фона левой колонки */
+    width: 500px; 
+    margin: 0 auto; 
+    background: #f0f0f0;
    }
    #header {
-    font-size: 2.2em; /* Размер текста */
-    text-align: center; /* Выравнивание по центру */
-    padding: 5px; /* Отступы вокруг текста */
-    background: #8fa09b; /* Цвет фона шапки */
-    color: #ffe; /* Цвет текста */
+    font-size: 2.2em; 
+    text-align: center; 
+    padding: 5px; 
+    background: #8fa09b;
+    color: #ffe;
    }
    #sidebar {
     margin-top: 10px; 
-    width: 110px; /* Ширина слоя */
-    padding: 0 10px; /* Отступы вокруг текста */
-    float: left; /* Обтекание по правому краю */
+    width: 110px;
+    padding: 0 10px;
+    float: left; 
    }
    #content {
-    margin-left: 130px; /* Отступ слева */
-    padding: 10px; /* Поля вокруг текста */
-    background: #fff; /* Цвет фона правой колонки */
+    margin-left: 130px; 
+    padding: 10px;
+    background: #fff;
    }
    #footer {
-    background: #8fa09b; /* Цвет фона подвала */
-    color: #fff; /* Цвет текста */
-    padding: 5px; /* Отступы вокруг текста */
-    clear: left; /* Отменяем действие float */
+    background: #8fa09b;
+    color: #fff;
+    padding: 5px;
+    clear: left;
    }
   </style>
  </head>
  <body>
   <div id="container">
-   <div id="header">Mailganer</div>
+   <div id="header">Hello</div>
    <div id="sidebar">
-    <p>Перейти на сайт</p>
-    <p>FAQ</a></p>
-    <p>Помощь</p>
+    <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">Перейти на сайт</a>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">FAQ</a>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">Помощь</a>
    </div>
    <div id="content">
     <h2>Добрый день , {{ .Name }}</h2>

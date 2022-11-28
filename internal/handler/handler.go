@@ -18,7 +18,7 @@ func NewHandler(logger logger.Logger, repository *repository.Repository) *Handle
 	return &Handler{
 		logger: logger,
 		repository:  repository,
-		mailHandler: newMailHandler(logger, mail.NewMail(logger) , repository),
+		mailHandler: newMailHandler(logger, mail.NewMail(logger) , repository.Subscriber , repository.Template),
 	}
 }
 
