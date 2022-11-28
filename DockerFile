@@ -3,7 +3,6 @@ FROM golang:alpine AS builder
 WORKDIR /build
 
 ADD go.mod .
-#ADD /templates/. /templates/.
 
 COPY . .
 
