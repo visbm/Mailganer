@@ -11,7 +11,7 @@ INSERT INTO subscribers (
   favourite_category
 ) 
 VALUES 
-  ('visbm@mail.ru', 'Tom', 'Riddle', 'Snakes'), 
+  ('tomm@gmail.com', 'Tom', 'Riddle', 'Snakes'), 
   ('ivan@mail.ru', 'Ivan', 'Ivanov', 'Cars');
 
 
