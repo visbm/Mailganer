@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All subscribers</title>
+</head>
+<body>
+    <table style="width: 100%;text-align: center;border-collapse: collapse;">
+        <tr>
+            <th style="font-weight: bold;padding: 5px;background: #efefef;border: 1px solid #dddddd;">UserID</th>
+            <th style="font-weight: bold;padding: 5px;background: #efefef;border: 1px solid #dddddd;">Address</th>
+            <th style="font-weight: bold;padding: 5px;background: #efefef;border: 1px solid #dddddd;">Name</th>
+            <th style="font-weight: bold;padding: 5px;background: #efefef;border: 1px solid #dddddd;">Surname</th>
+            <th style="font-weight: bold;padding: 5px;background: #efefef;border: 1px solid #dddddd;">Favourite Category</th>
+        </tr>
+        {{range .}}
+        <tr>
+            <td style="border: 1px solid #dddddd;padding: 5px;">{{ .ID }}</td>
+            <td style="border: 1px solid #dddddd;padding: 5px;">{{ .Address }}</td>
+            <td style="border: 1px solid #dddddd;padding: 5px;">{{ .Name }}</td>
+            <td style="border: 1px solid #dddddd;padding: 5px;">{{ .Surname }}</td>
+            <td style="border: 1px solid #dddddd;padding: 5px;">{{ .FavouriteCategory }}</td>
+        </tr>
+        {{end}}
+    </table>
+</body>
+</html>

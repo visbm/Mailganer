@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  mailganer-db:
+    image: postgres:14
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_SSLMODE=${POSTGRES_SSLMODE}
+    ports:
+      - "5430:${POSTGRES_PORT}"
+    restart: on-failure
+    volumes:
+      - database-data:/var/lib/postgresql/auth/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+          - database
+
+  mailganer:
+    build:
+      dockerfile: DockerFile
+      context: ./
+    ports:
+      - 8080:${SERVER_PORT}
+    env_file:
+      - .env
+    environment:
+      - ENV=prod
+      - SERVER_HOST:${SERVER_HOST}
+      - MAIL_SOURCE:${MAIL_SOURCE}
+      - MAIL_PORT:${MAIL_PORT}
+      - MAIL_FROM:${MAIL_FROM}
+      - MAIL_PASSWORD:${MAIL_PASSWORD}
+    tty: true
+    depends_on:
+      - mailganer-db 
+    restart: on-failure
+    networks:
+      - database
+
+networks:
+  database:
+    driver: bridge
+
+volumes:
+  database-data:

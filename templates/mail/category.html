@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="font-family:Arial, Helvetica, sans-serif">
+    <div id="container" style="width: 500px;margin: 0 auto;background: #f0f0f0;">
+        <div id="header" style="font-size: 2.2em;text-align: center;padding: 5px;background-color:rgb(179, 184, 182);color: #000000;">Mailganer</div>
+        <div id="content" style="padding: 10px;background: rgb(234, 233, 233);">
+         <h2 style="font-size: 1.1em;color: #6388f8;margin-top: 0;">Добрый день, {{ .Name }}</h2>
+         <ul>
+          <div>Дорогой, {{ .Name }} {{ .Surname }}! 
+            Зайдите к нам и посмотрите что нового в твой любимой категории "{{ .FavouriteCategory }}"</div>
+         </ul> 
+        </div>
+        <div id="footer" style="background-color:rgb(179, 184, 182);display:flex;align-items: center;justify-content: space-between;gap:20px;color: #000;padding: 5px;">
+           <div>
+             <p>MailGaner</p>
+           </div>
+           <div>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">Перейти на сайт</a>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">FAQ</a>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">Помощь</a>
+           </div>
+        </div>
+        </div>
+       </div> 
+</body>
+</html>

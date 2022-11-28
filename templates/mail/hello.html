@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+  <style type="text/css">
+   h2 {
+    font-size: 1.1em; 
+    color: #800040; 
+    margin-top: 0; 
+   }
+   #container {
+    width: 500px; 
+    margin: 0 auto; 
+    background: #f0f0f0;
+   }
+   #header {
+    font-size: 2.2em; 
+    text-align: center; 
+    padding: 5px; 
+    background: #8fa09b;
+    color: #ffe;
+   }
+   #sidebar {
+    margin-top: 10px; 
+    width: 110px;
+    padding: 0 10px;
+    float: left; 
+   }
+   #content {
+    margin-left: 130px; 
+    padding: 10px;
+    background: #fff;
+   }
+   #footer {
+    background: #8fa09b;
+    color: #fff;
+    padding: 5px;
+    clear: left;
+   }
+  </style>
+ </head>
+ <body>
+  <div id="container">
+   <div id="header">Hello</div>
+   <div id="sidebar">
+    <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">Перейти на сайт</a>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">FAQ</a>
+             <a style="margin-right:10px;color:#000;text-decoration: none;" href="/">Помощь</a>
+   </div>
+   <div id="content">
+    <h2>Добрый день , {{ .Name }}</h2>
+    <ul>
+    <div>Дорогой, {{ .Name }} {{ .Surname }} , вы давно к нам не заглядывали ! 
+         Переходите на сайт и смотри что нового!</div>
+    </ul> 
+   </div>
+   <div id="footer">MailGaner</div>
+  </div> 
+ </body>
+</html>
